@@ -1,16 +1,9 @@
+import 'package:citadel/screens/check_email_page.dart';
 import 'package:flutter/material.dart';
+import 'login_page.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
-
-  @override
-  State<LoginPage> createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  bool _obscurePassword = true;
+class ForgotPasswordPage extends StatelessWidget {
+  const ForgotPasswordPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -72,13 +65,26 @@ class _LoginPageState extends State<LoginPage> {
                     24,
                     24,
                     24,
-                    MediaQuery.of(context).viewInsets.bottom + 24,
+                    isKeyboardOpen ? 12 : 36,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+                      // Back Button
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: IconButton(
+                          icon: const Icon(
+                            Icons.arrow_back,
+                            color: Color(0xFFFF9800),
+                          ),
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+
                       const Text(
-                        'Welcome',
+                        'Forgot Password?',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontFamily: 'Poppins',
@@ -89,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       const SizedBox(height: 6),
                       const Text(
-                        'Login to your account',
+                        'Please enter your credentials to reset your forgotten password.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontFamily: 'Roboto',
@@ -99,9 +105,9 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       const SizedBox(height: 20),
 
-                      // Username
+                      // Student Number
                       const Text(
-                        'Username',
+                        'Student Number',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 14,
@@ -111,9 +117,8 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       const SizedBox(height: 6),
                       TextField(
-                        controller: _usernameController,
                         decoration: InputDecoration(
-                          hintText: 'Enter username',
+                          hintText: 'Enter student number',
                           filled: true,
                           fillColor: Colors.white,
                           hintStyle: const TextStyle(
@@ -133,9 +138,9 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       const SizedBox(height: 16),
 
-                      // Password
+                      // Email
                       const Text(
-                        'Password',
+                        'Email',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 14,
@@ -145,10 +150,8 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       const SizedBox(height: 6),
                       TextField(
-                        controller: _passwordController,
-                        obscureText: _obscurePassword,
                         decoration: InputDecoration(
-                          hintText: 'Enter password',
+                          hintText: 'Enter email',
                           filled: true,
                           fillColor: Colors.white,
                           hintStyle: const TextStyle(
@@ -164,69 +167,73 @@ class _LoginPageState extends State<LoginPage> {
                             borderRadius: BorderRadius.circular(30),
                             borderSide: BorderSide.none,
                           ),
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              _obscurePassword
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
-                              color: Colors.grey,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                _obscurePassword = !_obscurePassword;
-                              });
-                            },
-                          ),
                         ),
                       ),
 
-                      // Forgot Password
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: TextButton(
+                      const SizedBox(height: 30),
+
+                      // Send Button
+                      SizedBox(
+                        height: 48,
+                        child: ElevatedButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, '/forgot_password');
+                            Navigator.push(
+                              context, 
+                              MaterialPageRoute(builder: (context) => const CheckEmailPage()),
+                            ); 
                           },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFFFF9800),
+                            shape: const StadiumBorder(),
+                          ),
                           child: const Text(
-                            'Forgot Password?',
+                            'Send',
                             style: TextStyle(
-                              color: Color(0xFFFF9800),
-                              fontSize: 13,
-                              fontFamily: 'Worksans',
-                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Sora',
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
                             ),
                           ),
                         ),
                       ),
 
-                      // Animated Login Button
-                      AnimatedContainer(
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.easeInOut,
-                        margin: EdgeInsets.only(
-                          top: isKeyboardOpen ? 10 : 40,
-                          bottom: 10,
-                        ),
-                        child: SizedBox(
-                          height: 48,
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFFFF9800),
-                              shape: const StadiumBorder(),
+                      const SizedBox(height: 20),
+
+                      // Back to Login
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            "Remember Password? ",
+                            style: TextStyle(
+                              color: Colors.white70,
+                              fontFamily: 'Worksans',
+                              fontSize: 13,
                             ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const LoginPage(),
+                                ),
+                              );
+                            },
                             child: const Text(
-                              'Login',
+                              "Sign In",
                               style: TextStyle(
-                                fontFamily: 'Sora',
-                                fontSize: 16,
+                                color: Color(0xFFFF9800),
                                 fontWeight: FontWeight.w700,
-                                color: Colors.white,
+                                fontFamily: 'Worksans',
+                                fontSize: 13,
                               ),
                             ),
                           ),
-                        ),
+                        ],
                       ),
+                      const SizedBox(height: 10),
                     ],
                   ),
                 ),

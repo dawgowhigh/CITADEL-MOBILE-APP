@@ -1,16 +1,36 @@
 import 'package:flutter/material.dart';
+import 'password_changed.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class SetNewPasswordPage extends StatefulWidget {
+  const SetNewPasswordPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SetNewPasswordPage> createState() => _SetNewPasswordPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  final TextEditingController _usernameController = TextEditingController();
+class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
+
+  void _changePassword() {
+    if (_passwordController.text == _confirmPasswordController.text &&
+        _passwordController.text.isNotEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Password changed successfully!")),
+      );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const PasswordChangedPage()),
+      );
+    } else {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text("Passwords do not match!")));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             // TOP SECTION
             Expanded(
-              flex: 4,
+              flex: 3,
               child: Center(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -34,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       Image.asset(
                         'assets/images/ucc_logo.png',
-                        height: size.height * 0.12,
+                        height: size.height * 0.10,
                         fit: BoxFit.contain,
                       ),
                       const SizedBox(width: 12),
@@ -58,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
 
-            // BOTTOM SECTION
+            // FORM SECTION
             Expanded(
               flex: 6,
               child: Container(
@@ -78,7 +98,7 @@ class _LoginPageState extends State<LoginPage> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       const Text(
-                        'Welcome',
+                        "Set your new password",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontFamily: 'Poppins',
@@ -87,51 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                           color: Colors.white,
                         ),
                       ),
-                      const SizedBox(height: 6),
-                      const Text(
-                        'Login to your account',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 14,
-                          color: Colors.white70,
-                        ),
-                      ),
                       const SizedBox(height: 20),
-
-                      // Username
-                      const Text(
-                        'Username',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontFamily: 'Worksans',
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      const SizedBox(height: 6),
-                      TextField(
-                        controller: _usernameController,
-                        decoration: InputDecoration(
-                          hintText: 'Enter username',
-                          filled: true,
-                          fillColor: Colors.white,
-                          hintStyle: const TextStyle(
-                            color: Color(0xFFBDBDBD),
-                            fontSize: 14,
-                            fontFamily: 'Worksans',
-                          ),
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 14,
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide.none,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 16),
 
                       // Password
                       const Text(
@@ -179,27 +155,57 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                       ),
+                      const SizedBox(height: 16),
 
-                      // Forgot Password
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: TextButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/forgot_password');
-                          },
-                          child: const Text(
-                            'Forgot Password?',
-                            style: TextStyle(
-                              color: Color(0xFFFF9800),
-                              fontSize: 13,
-                              fontFamily: 'Worksans',
-                              fontWeight: FontWeight.w500,
+                      // Confirm Password
+                      const Text(
+                        'Confirm Password',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontFamily: 'Worksans',
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      TextField(
+                        controller: _confirmPasswordController,
+                        obscureText: _obscureConfirmPassword,
+                        decoration: InputDecoration(
+                          hintText: 'Enter password',
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintStyle: const TextStyle(
+                            color: Color(0xFFBDBDBD),
+                            fontSize: 14,
+                            fontFamily: 'Worksans',
+                          ),
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 14,
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            borderSide: BorderSide.none,
+                          ),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _obscureConfirmPassword
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                              color: Colors.grey,
                             ),
+                            onPressed: () {
+                              setState(() {
+                                _obscureConfirmPassword =
+                                    !_obscureConfirmPassword;
+                              });
+                            },
                           ),
                         ),
                       ),
 
-                      // Animated Login Button
+                      // Change Button
                       AnimatedContainer(
                         duration: const Duration(milliseconds: 300),
                         curve: Curves.easeInOut,
@@ -210,13 +216,13 @@ class _LoginPageState extends State<LoginPage> {
                         child: SizedBox(
                           height: 48,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: _changePassword,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFFFF9800),
                               shape: const StadiumBorder(),
                             ),
                             child: const Text(
-                              'Login',
+                              'Change',
                               style: TextStyle(
                                 fontFamily: 'Sora',
                                 fontSize: 16,
