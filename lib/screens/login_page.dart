@@ -27,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               // TOP SECTION
               Positioned(
-                top: size.height * 0.17, // ⬇️ Lowered for better spacing
+                top: size.height * 0.15, // Adjusted to make it more centered
                 left: 20,
                 right: 20,
                 child: Row(
@@ -69,11 +69,13 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   child: IntrinsicHeight(
                     child: Container(
+                      height: size.height * 0.51,
                       width: double.infinity,
                       decoration: const BoxDecoration(
                         color: Color(0xFF064F32),
-                        borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(36)),
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(36),
+                        ),
                       ),
                       padding: const EdgeInsets.fromLTRB(24, 24, 24, 24),
                       child: Column(
@@ -89,12 +91,12 @@ class _LoginPageState extends State<LoginPage> {
                               color: Colors.white,
                             ),
                           ),
-                          const SizedBox(height: 6),
+                          const SizedBox(height: 3),
                           const Text(
                             'Login to your account',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontFamily: 'Roboto',
+                              fontFamily: 'Worksans',
                               fontSize: 14,
                               color: Colors.white70,
                             ),
@@ -105,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                             'Username',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 14,
+                              fontSize: 15,
                               fontFamily: 'Worksans',
                               fontWeight: FontWeight.w500,
                             ),
@@ -114,12 +116,12 @@ class _LoginPageState extends State<LoginPage> {
                           TextField(
                             controller: _usernameController,
                             decoration: InputDecoration(
-                              hintText: 'Enter username',
+                              hintText: 'Enter Username',
                               filled: true,
                               fillColor: Colors.white,
                               hintStyle: const TextStyle(
                                 color: Color(0xFFBDBDBD),
-                                fontSize: 14,
+                                fontSize: 13,
                                 fontFamily: 'Worksans',
                               ),
                               contentPadding: const EdgeInsets.symmetric(
@@ -138,7 +140,7 @@ class _LoginPageState extends State<LoginPage> {
                             'Password',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 14,
+                              fontSize: 15,
                               fontFamily: 'Worksans',
                               fontWeight: FontWeight.w500,
                             ),
@@ -148,12 +150,12 @@ class _LoginPageState extends State<LoginPage> {
                             controller: _passwordController,
                             obscureText: _obscurePassword,
                             decoration: InputDecoration(
-                              hintText: 'Enter password',
+                              hintText: 'Enter Password',
                               filled: true,
                               fillColor: Colors.white,
                               hintStyle: const TextStyle(
                                 color: Color(0xFFBDBDBD),
-                                fontSize: 14,
+                                fontSize: 13,
                                 fontFamily: 'Worksans',
                               ),
                               contentPadding: const EdgeInsets.symmetric(
@@ -185,7 +187,9 @@ class _LoginPageState extends State<LoginPage> {
                             child: TextButton(
                               onPressed: () {
                                 Navigator.pushNamed(
-                                    context, '/forgot_password');
+                                  context,
+                                  '/forgot_password',
+                                );
                               },
                               child: const Text(
                                 'Forgot Password?',
@@ -202,7 +206,7 @@ class _LoginPageState extends State<LoginPage> {
                           const SizedBox(height: 24),
 
                           SizedBox(
-                            height: 48,
+                            height: 50,
                             child: ElevatedButton(
                               onPressed: () {
                                 Navigator.pushReplacement(
