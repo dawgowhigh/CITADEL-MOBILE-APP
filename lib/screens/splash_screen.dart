@@ -38,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
               style: TextStyle(
                 fontFamily: 'Sora',
                 fontSize: 38,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w600,
                 color: Color(0xFF43A047),
               ),
             ),

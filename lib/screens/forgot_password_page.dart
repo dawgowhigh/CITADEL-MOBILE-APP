@@ -131,7 +131,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                 vertical: 14,
                               ),
                               border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
+                                borderRadius: BorderRadius.circular(16),
                                 borderSide: BorderSide.none,
                               ),
                             ),
@@ -165,7 +165,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                 vertical: 14,
                               ),
                               border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
+                                borderRadius: BorderRadius.circular(16),
                                 borderSide: BorderSide.none,
                               ),
                             ),
@@ -186,7 +186,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color(0xFFFF9800),
-                                shape: const StadiumBorder(),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
                               ),
                               child: const Text(
                                 'Send',
@@ -225,7 +227,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                   "Sign In",
                                   style: TextStyle(
                                     color: Color(0xFFFF9800),
-                                    fontWeight: FontWeight.w700,
+                                    fontWeight: FontWeight.w500,
                                     fontFamily: 'Worksans',
                                     fontSize: 13,
                                   ),

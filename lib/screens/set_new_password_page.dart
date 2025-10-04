@@ -10,7 +10,8 @@ class SetNewPasswordPage extends StatefulWidget {
 
 class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
 
@@ -25,9 +26,9 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
         MaterialPageRoute(builder: (context) => const PasswordChangedPage()),
       );
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Passwords do not match!")),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text("Passwords do not match!")));
     }
   }
 
@@ -88,7 +89,9 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
                       width: double.infinity,
                       decoration: const BoxDecoration(
                         color: Color(0xFF064F32),
-                        borderRadius: BorderRadius.vertical(top: Radius.circular(36)),
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(36),
+                        ),
                       ),
                       padding: const EdgeInsets.fromLTRB(24, 24, 24, 24),
                       child: Column(
@@ -137,14 +140,19 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
                                 fontSize: 13,
                                 fontFamily: 'Worksans',
                               ),
-                              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                              contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 14,
+                              ),
                               border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
+                                borderRadius: BorderRadius.circular(16),
                                 borderSide: BorderSide.none,
                               ),
                               suffixIcon: IconButton(
                                 icon: Icon(
-                                  _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                                  _obscurePassword
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
                                   color: Colors.grey,
                                 ),
                                 onPressed: () {
@@ -178,19 +186,25 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
                                 fontSize: 13,
                                 fontFamily: 'Worksans',
                               ),
-                              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                              contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 14,
+                              ),
                               border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
+                                borderRadius: BorderRadius.circular(16),
                                 borderSide: BorderSide.none,
                               ),
                               suffixIcon: IconButton(
                                 icon: Icon(
-                                  _obscureConfirmPassword ? Icons.visibility_off : Icons.visibility,
+                                  _obscureConfirmPassword
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
                                   color: Colors.grey,
                                 ),
                                 onPressed: () {
                                   setState(() {
-                                    _obscureConfirmPassword = !_obscureConfirmPassword;
+                                    _obscureConfirmPassword =
+                                        !_obscureConfirmPassword;
                                   });
                                 },
                               ),
@@ -203,7 +217,9 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
                               onPressed: _changePassword,
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color(0xFFFF9800),
-                                shape: const StadiumBorder(),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
                               ),
                               child: const Text(
                                 'Change',

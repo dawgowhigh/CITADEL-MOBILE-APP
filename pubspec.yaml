@@ -13,6 +13,9 @@ dependencies:
 
   cupertino_icons: ^1.0.8
   google_fonts: ^6.2.1  # GOOGLE FONTS PACKAGE (OPTIONAL)
+  material_design_icons_flutter: ^7.0.7296
+  intl: ^0.18.0
+  qr_flutter: ^4.0.0
 
 dev_dependencies:
   flutter_test:
@@ -31,6 +34,10 @@ flutter:
       fonts:
         - asset: assets/fonts/Sora-SemiBold.ttf
           weight: 600
+        - asset: assets/fonts/Sora-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Sora-Medium.ttf
+          weight: 500
     - family: Newsreader
       fonts:
         - asset: assets/fonts/Newsreader-Bold.ttf
@@ -51,3 +58,9 @@ flutter:
           weight: 400
         - asset: assets/fonts/Roboto-Medium.ttf
           weight: 500
+    - family: Trispace
+      fonts:
+        - asset: assets/fonts/Trispace-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Trispace-Light.ttf
+          weight: 300
