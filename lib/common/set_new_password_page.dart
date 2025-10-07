@@ -45,7 +45,7 @@ class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
           child: Stack(
             children: [
               Positioned(
-                top: size.height * 0.15,
+                top: size.height * 0.15, // Adjusted to make it more centered
                 left: 20,
                 right: 20,
                 child: Row(

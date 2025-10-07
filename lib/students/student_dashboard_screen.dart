@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'my_schedule_screen.dart';
-import '../screens/settings.dart';
+import 'settings.dart';
 import 'logs_screen.dart'; // ✅ Import LogsScreen
 
 class StudentDashboardScreen extends StatefulWidget {

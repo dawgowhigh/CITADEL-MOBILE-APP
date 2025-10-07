@@ -8,17 +8,42 @@ class CheckEmailPage extends StatefulWidget {
   State<CheckEmailPage> createState() => _CheckEmailPageState();
 }
 
-class _CheckEmailPageState extends State<CheckEmailPage> {
+class _CheckEmailPageState extends State<CheckEmailPage>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _fadeIn;
+  late Animation<double> _bounce;
+
   @override
   void initState() {
     super.initState();
 
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 600),
+    );
+
+    _fadeIn = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
+    _bounce = Tween<double>(begin: 0.8, end: 1.0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.elasticOut),
+    );
+
+    _controller.forward();
+
     Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const SetNewPasswordPage()),
-      );
+      if (mounted) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const SetNewPasswordPage()),
+        );
+      }
     });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -27,51 +52,44 @@ class _CheckEmailPageState extends State<CheckEmailPage> {
       backgroundColor: const Color(0xFFF8FFF8),
       body: SafeArea(
         child: Center(
-          child: Padding(
+          child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 32),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Envelope Icon with Green Circle
-                Container(
-                  padding: const EdgeInsets.all(24),
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Color(0xFF54B847),
+            child: FadeTransition(
+              opacity: _fadeIn,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ScaleTransition(
+                    scale: _bounce,
+                    child: Image.asset(
+                      'assets/images/email_check_icon.png',
+                      width: 250,
+                      height: 250,
+                    ),
                   ),
-                  child: const Icon(
-                    Icons.mark_email_read,
-                    size: 60,
-                    color: Colors.white,
+                  const Text(
+                    "Check your email",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 22,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 30),
-
-                // Title
-                const Text(
-                  "Check your email",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontSize: 22,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.black,
+                  const SizedBox(height: 6),
+                  const Text(
+                    "A password reset email has been sent to your registered address. Follow the instructions in the email to reset your password.",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: 'Worksans',
+                      fontSize: 14,
+                      color: Color(0xFF707070),
+                      height: 1.5,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 16),
-
-                // Subtitle
-                const Text(
-                  "A password reset email has been sent to your registered address. Follow the instructions in the email to reset your password.",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 14,
-                    color: Colors.black54,
-                    height: 1.5,
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

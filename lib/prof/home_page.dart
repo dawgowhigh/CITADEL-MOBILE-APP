@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'schedule_page.dart'; // 📅 Schedule Page
 import 'program_page.dart'; // 🎓 Program Page
-import '../screens/settings.dart'; // ⚙️ Settings Page
+import '../students/settings.dart'; // ⚙️ Settings Page
 import 'attendance_page.dart'; // Attendance Page
 
 class HomePage extends StatefulWidget {

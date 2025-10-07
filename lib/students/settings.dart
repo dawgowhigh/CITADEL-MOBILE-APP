@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'profile_page.dart'; // ✅ Import mo yung profile page
-
 class Settings extends StatelessWidget {
   const Settings({super.key});
 
@@ -96,10 +94,10 @@ class Settings extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               _settingsItem(context, Icons.person, "My Profile", onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const ProfilePage()),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => const student_dashboard_screen()),
+                // );
               }),
               _settingsItem(context, Icons.notifications, "Notifications"),
 

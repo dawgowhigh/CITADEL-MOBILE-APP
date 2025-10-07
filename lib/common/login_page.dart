@@ -1,4 +1,5 @@
 // import 'package:citadel/prof/home_page.dart';
+import 'package:citadel/prof/home_page.dart';
 import 'package:citadel/students/student_dashboard_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -142,7 +143,8 @@ class _LoginPageState extends State<LoginPage> {
         _buildButton("Login", () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => StudentDashboardScreen()),
+            MaterialPageRoute(builder: (context) => HomePage()),
+            //  MaterialPageRoute(builder: (context) => StudentDashboardScreen()),
           );
         }),
       ],
