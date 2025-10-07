@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'set_new_password_page.dart';
+import '../common/set_new_password_page.dart';
 
 class CheckEmailPage extends StatefulWidget {
   const CheckEmailPage({super.key});

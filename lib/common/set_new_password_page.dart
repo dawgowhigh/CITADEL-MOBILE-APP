@@ -1,17 +1,36 @@
 import 'package:flutter/material.dart';
-import 'home_page.dart';
+import 'password_changed.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class SetNewPasswordPage extends StatefulWidget {
+  const SetNewPasswordPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SetNewPasswordPage> createState() => _SetNewPasswordPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  final TextEditingController _usernameController = TextEditingController();
+class _SetNewPasswordPageState extends State<SetNewPasswordPage> {
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
+
+  void _changePassword() {
+    if (_passwordController.text == _confirmPasswordController.text &&
+        _passwordController.text.isNotEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Password changed successfully!")),
+      );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const PasswordChangedPage()),
+      );
+    } else {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text("Passwords do not match!")));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +44,8 @@ class _LoginPageState extends State<LoginPage> {
         child: SafeArea(
           child: Stack(
             children: [
-              // TOP SECTION
               Positioned(
-                top: size.height * 0.17, // ⬇️ Lowered for better spacing
+                top: size.height * 0.15,
                 left: 20,
                 right: 20,
                 child: Row(
@@ -56,8 +74,6 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
               ),
-
-              // BOTTOM SECTION
               Positioned(
                 bottom: 0,
                 left: 0,
@@ -69,18 +85,20 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   child: IntrinsicHeight(
                     child: Container(
+                      height: size.height * 0.51,
                       width: double.infinity,
                       decoration: const BoxDecoration(
                         color: Color(0xFF064F32),
-                        borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(36)),
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(36),
+                        ),
                       ),
                       padding: const EdgeInsets.fromLTRB(24, 24, 24, 24),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           const Text(
-                            'Welcome',
+                            'Set New Password',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontFamily: 'Poppins',
@@ -91,54 +109,20 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           const SizedBox(height: 6),
                           const Text(
-                            'Login to your account',
+                            'Enter and confirm your new password',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontFamily: 'Roboto',
+                              fontFamily: 'Worksans',
                               fontSize: 14,
                               color: Colors.white70,
                             ),
                           ),
-                          const SizedBox(height: 20),
-
-                          const Text(
-                            'Username',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 14,
-                              fontFamily: 'Worksans',
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          const SizedBox(height: 6),
-                          TextField(
-                            controller: _usernameController,
-                            decoration: InputDecoration(
-                              hintText: 'Enter username',
-                              filled: true,
-                              fillColor: Colors.white,
-                              hintStyle: const TextStyle(
-                                color: Color(0xFFBDBDBD),
-                                fontSize: 14,
-                                fontFamily: 'Worksans',
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 14,
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide: BorderSide.none,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-
+                          const SizedBox(height: 18),
                           const Text(
                             'Password',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 14,
+                              fontSize: 15,
                               fontFamily: 'Worksans',
                               fontWeight: FontWeight.w500,
                             ),
@@ -148,12 +132,12 @@ class _LoginPageState extends State<LoginPage> {
                             controller: _passwordController,
                             obscureText: _obscurePassword,
                             decoration: InputDecoration(
-                              hintText: 'Enter password',
+                              hintText: 'Enter Password',
                               filled: true,
                               fillColor: Colors.white,
                               hintStyle: const TextStyle(
                                 color: Color(0xFFBDBDBD),
-                                fontSize: 14,
+                                fontSize: 13,
                                 fontFamily: 'Worksans',
                               ),
                               contentPadding: const EdgeInsets.symmetric(
@@ -161,7 +145,7 @@ class _LoginPageState extends State<LoginPage> {
                                 vertical: 14,
                               ),
                               border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
+                                borderRadius: BorderRadius.circular(16),
                                 borderSide: BorderSide.none,
                               ),
                               suffixIcon: IconButton(
@@ -179,45 +163,66 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                           ),
-
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: TextButton(
-                              onPressed: () {
-                                Navigator.pushNamed(
-                                    context, '/forgot_password');
-                              },
-                              child: const Text(
-                                'Forgot Password?',
-                                style: TextStyle(
-                                  color: Color(0xFFFF9800),
-                                  fontSize: 13,
-                                  fontFamily: 'Worksans',
-                                  fontWeight: FontWeight.w500,
+                          const SizedBox(height: 14),
+                          const Text(
+                            'Confirm Password',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontFamily: 'Worksans',
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          TextField(
+                            controller: _confirmPasswordController,
+                            obscureText: _obscureConfirmPassword,
+                            decoration: InputDecoration(
+                              hintText: 'Confirm Password',
+                              filled: true,
+                              fillColor: Colors.white,
+                              hintStyle: const TextStyle(
+                                color: Color(0xFFBDBDBD),
+                                fontSize: 13,
+                                fontFamily: 'Worksans',
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 14,
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16),
+                                borderSide: BorderSide.none,
+                              ),
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  _obscureConfirmPassword
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
+                                  color: Colors.grey,
                                 ),
+                                onPressed: () {
+                                  setState(() {
+                                    _obscureConfirmPassword =
+                                        !_obscureConfirmPassword;
+                                  });
+                                },
                               ),
                             ),
                           ),
-
-                          const SizedBox(height: 24),
-
+                          const SizedBox(height: 35),
                           SizedBox(
-                            height: 48,
+                            height: 50,
                             child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const HomePage(),
-                                  ),
-                                );
-                              },
+                              onPressed: _changePassword,
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color(0xFFFF9800),
-                                shape: const StadiumBorder(),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
                               ),
                               child: const Text(
-                                'Login',
+                                'Change',
                                 style: TextStyle(
                                   fontFamily: 'Sora',
                                   fontSize: 16,
