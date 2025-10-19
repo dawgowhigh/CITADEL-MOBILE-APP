@@ -394,7 +394,7 @@ class _TermsContent extends StatelessWidget {
         ),
         SizedBox(height: 12),
         Text(
-          "5. Limitation of Use\nThe application should be used within the bounds of its intended purpose and not for any other unauthorized activities.",
+          "5. Limitation of UseThe application should be used within the bounds of its intended purpose and not for any other unauthorized activities.",
           style: TextStyle(fontSize: 14, fontFamily: "Sora"),
         ),
         SizedBox(height: 12),
