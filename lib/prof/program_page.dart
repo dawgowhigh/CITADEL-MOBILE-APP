@@ -50,7 +50,7 @@ class ProgramPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Header
+            // 🏷️ Header
             const Padding(
               padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
               child: Column(
@@ -79,17 +79,24 @@ class ProgramPage extends StatelessWidget {
               ),
             ),
 
-            // Grid of program cards
+            // 🧩 Grid of Program Cards
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: GridView.builder(
+                  // ✅ Added bottom padding to prevent obstruction
+                  padding: const EdgeInsets.only(bottom: 100),
                   itemCount: programs.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     crossAxisSpacing: 16,
-                    mainAxisSpacing: 16,
-                    childAspectRatio: 0.7,
+                    mainAxisSpacing: 8,
+                    childAspectRatio:
+                        MediaQuery.of(context).size.width < 400
+                            ? 0.68
+                            : (MediaQuery.of(context).size.width < 600
+                                ? 0.75
+                                : 0.8),
                   ),
                   itemBuilder: (context, index) {
                     final program = programs[index];

@@ -51,26 +51,49 @@ class _AttendancePageState extends State<AttendancePage> {
             children: [
               // 🔹 Custom AppBar
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  IconButton(
-                    icon: const Icon(
-                      Icons.arrow_back_ios_new,
-                      color: Colors.black87,
-                    ),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                  const Expanded(
-                    child: Center(
-                      child: Text(
-                        "Attendance",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: "Sora",
+                  // 🔸 Back Button (exact same style as QR icon)
+                  Container(
+                    margin: const EdgeInsets.only(left: 8),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(12),
+                      onTap: () => Navigator.pop(context),
+                      child: Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withAlpha(77),
+                              spreadRadius: 1,
+                              blurRadius: 4,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: const Icon(
+                          Icons.arrow_back_ios_new,
+                          color: Color(0xFF000000),
+                          size: 24,
                         ),
                       ),
                     ),
                   ),
+
+                  // 🔸 Title Centered
+                  const Text(
+                    "Attendance",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "Sora",
+                    ),
+                  ),
+
+                  // 🔸 QR Icon Button (same size)
                   Container(
                     margin: const EdgeInsets.only(right: 8),
                     child: InkWell(
@@ -84,7 +107,8 @@ class _AttendancePageState extends State<AttendancePage> {
                         );
                       },
                       child: Container(
-                        padding: const EdgeInsets.all(8),
+                        width: 40,
+                        height: 40,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(12),
@@ -100,12 +124,14 @@ class _AttendancePageState extends State<AttendancePage> {
                         child: const Icon(
                           Icons.qr_code_scanner,
                           color: Color(0xFFEC5B05),
+                          size: 24,
                         ),
                       ),
                     ),
                   ),
                 ],
               ),
+
               const SizedBox(height: 24),
 
               // 🔹 Class Info Card
@@ -179,7 +205,7 @@ class _AttendancePageState extends State<AttendancePage> {
                         fontFamily: 'Sora',
                       ),
                     ),
-                     SizedBox(width: 60),
+                    SizedBox(width: 60),
                     Text(
                       "Attendance",
                       style: TextStyle(
@@ -202,6 +228,7 @@ class _AttendancePageState extends State<AttendancePage> {
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: [
                       BoxShadow(
+                        // ignore: deprecated_member_use
                         color: Colors.black.withOpacity(0.08),
                         blurRadius: 8,
                         spreadRadius: 1,
@@ -217,7 +244,10 @@ class _AttendancePageState extends State<AttendancePage> {
 
                       return Container(
                         margin: const EdgeInsets.symmetric(vertical: 6),
-                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 15,
+                          vertical: 12,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(12),
@@ -276,7 +306,11 @@ class _AttendancePageState extends State<AttendancePage> {
                                   borderRadius: BorderRadius.circular(6),
                                 ),
                                 child: isChecked
-                                    ? const Icon(Icons.check, size: 16, color: Colors.white)
+                                    ? const Icon(
+                                        Icons.check,
+                                        size: 16,
+                                        color: Colors.white,
+                                      )
                                     : null,
                               ),
                             ),

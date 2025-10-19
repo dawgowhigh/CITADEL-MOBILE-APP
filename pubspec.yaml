@@ -14,7 +14,15 @@ dependencies:
 
   cupertino_icons: ^1.0.8
   google_fonts: ^6.2.1  # GOOGLE FONTS PACKAGE (OPTIONAL)
+<<<<<<< HEAD
   qr_flutter: ^4.1.0
+=======
+  material_design_icons_flutter: ^7.0.7296
+  intl: ^0.18.0
+  qr_flutter: ^4.0.0
+  image_picker: ^1.0.4
+  flutter_svg: ^2.1.1
+>>>>>>> 6cd0d60 (okay na 'to)
 
 dev_dependencies:
   flutter_test:
@@ -26,7 +34,12 @@ flutter:
   uses-material-design: true
 
   assets:   # IMAGE ASSETS
+<<<<<<< HEAD
     - assets/images/calendar_icon.png
+=======
+    - assets/images/
+    - assets/icons/
+>>>>>>> 6cd0d60 (okay na 'to)
 
   fonts:    # CUSTOM FONT
     - family: Sora
@@ -37,6 +50,8 @@ flutter:
           weight: 400
         - asset: assets/fonts/Sora-Medium.ttf
           weight: 500
+        - asset: assets/fonts/Sora-Bold.ttf
+          weight: 700
     - family: Newsreader
       fonts:
         - asset: assets/fonts/Newsreader-Bold.ttf
@@ -63,3 +78,7 @@ flutter:
           weight: 700
         - asset: assets/fonts/Trispace-Light.ttf
           weight: 300
+        - asset: assets/fonts/Trispace-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Trispace-Medium.ttf
+          weight: 500

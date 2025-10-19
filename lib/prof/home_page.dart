@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD:lib/prof/home_page.dart
 import 'schedule_page.dart'; // 📅 Schedule Page
 import 'program_page.dart'; // 🎓 Program Page
 import '../students/settings.dart'; // ⚙️ Settings Page
 import 'attendance_page.dart'; // Attendance Page
+=======
+import 'dart:ui';
+import 'schedule_page.dart';
+import 'program_page.dart';
+import 'settings_page.dart';
+import 'attendance_page.dart';
+>>>>>>> 6cd0d60 (okay na 'to):lib/screens/home_page.dart
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -52,10 +60,7 @@ class _HomePageState extends State<HomePage> {
       'November',
       'December',
     ];
-
-    final weekday = weekdays[dt.weekday - 1];
-    final month = months[dt.month];
-    return '$weekday, $month ${dt.day}, ${dt.year}';
+    return '${weekdays[dt.weekday - 1]}, ${months[dt.month]} ${dt.day}, ${dt.year}';
   }
 
   @override
@@ -63,13 +68,11 @@ class _HomePageState extends State<HomePage> {
     final today = _formatDate(DateTime.now());
 
     return Scaffold(
-      backgroundColor: const Color(0xFFFFFFFF),
-      body: PageView(
-        controller: _pageController,
-        onPageChanged: (index) {
-          setState(() => _selectedIndex = index);
-        },
+      extendBody: true,
+      backgroundColor: Colors.transparent,
+      body: Stack(
         children: [
+<<<<<<< HEAD:lib/prof/home_page.dart
           _buildHomeContent(today), // 🏠 Home
           const SchedulePage(), // 📅 Schedule
           const ProgramPage(), // 🎓 Program
@@ -99,28 +102,137 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_month),
             label: "Schedule",
+=======
+          Positioned.fill(
+            child: Container(
+              decoration: const BoxDecoration(color: Color(0xFFFEFFFE)),
+            ),
+>>>>>>> 6cd0d60 (okay na 'to):lib/screens/home_page.dart
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.school), label: "Programs"),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: "Settings",
+          PageView(
+            controller: _pageController,
+            onPageChanged: (index) => setState(() => _selectedIndex = index),
+            children: [
+              _buildHomeContent(today),
+              const SchedulePage(),
+              const ProgramPage(),
+              const SettingsPage(),
+            ],
+          ),
+          Positioned(
+            left: 20,
+            right: 20,
+            bottom: 20,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(30),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                    vertical: MediaQuery.of(context).size.height * 0.010,
+                  ),
+                  decoration: BoxDecoration(
+                    // ignore: deprecated_member_use
+                    color: Colors.white.withOpacity(0.15),
+                    borderRadius: BorderRadius.circular(30),
+                    boxShadow: [
+                      BoxShadow(
+                        // ignore: deprecated_member_use
+                        color: Colors.black.withOpacity(0.2),
+                        blurRadius: 12,
+                        offset: Offset(0, 6),
+                      ),
+                    ],
+                  ),
+                  child: BottomNavigationBar(
+                    backgroundColor: Colors.transparent,
+                    elevation: 0,
+                    type: BottomNavigationBarType.fixed,
+                    currentIndex: _selectedIndex,
+                    selectedItemColor: const Color(0xFF57955A),
+                    unselectedItemColor: const Color(0xFF000000),
+                    showUnselectedLabels: true,
+
+                    // ✅ Add these to style the labels
+                    selectedLabelStyle: const TextStyle(
+                      fontFamily: "Sora", // your custom font
+                      fontWeight: FontWeight.w600,
+                      fontSize: 13,
+                    ),
+                    unselectedLabelStyle: const TextStyle(
+                      fontFamily: "Sora",
+                      fontWeight: FontWeight.w500,
+                      fontSize: 12,
+                    ),
+
+                    onTap: (index) {
+                      setState(() {
+                        _selectedIndex = index;
+                        _pageController.animateToPage(
+                          index,
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeInOut,
+                        );
+                      });
+                    },
+                    items: [
+                      _buildNavItem(
+                        iconPath: "assets/icons/home_icon.png",
+                        label: "Home",
+                        index: 0,
+                      ),
+                      _buildNavItem(
+                        iconPath: "assets/icons/schedule_icon.png",
+                        label: "Schedule",
+                        index: 1,
+                      ),
+                      _buildNavItem(
+                        iconPath: "assets/icons/programs_icon.png",
+                        label: "Program",
+                        index: 2,
+                      ),
+                      _buildNavItem(
+                        iconPath: "assets/icons/settings_icon.png",
+                        label: "Settings",
+                        index: 3,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ),
         ],
       ),
     );
   }
 
-  // ======================
-  // 🏠 HOME CONTENT
-  // ======================
+  BottomNavigationBarItem _buildNavItem({
+    required String iconPath,
+    required String label,
+    required int index,
+  }) {
+    bool isActive = _selectedIndex == index;
+
+    return BottomNavigationBarItem(
+      icon: Image.asset(
+        iconPath,
+        width: MediaQuery.of(context).size.width * 0.065,
+        height: MediaQuery.of(context).size.width * 0.065,
+        color: isActive ? const Color(0xFF57955A) : const Color(0xFF000000),
+        colorBlendMode: BlendMode.srcIn,
+      ),
+      label: label,
+    );
+  }
+
   Widget _buildHomeContent(String today) {
     return SafeArea(
       child: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.fromLTRB(16, 16, 16, 100),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Greeting Header
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -142,9 +254,7 @@ class _HomePageState extends State<HomePage> {
                   clipBehavior: Clip.antiAlias,
                   child: InkWell(
                     borderRadius: BorderRadius.circular(12),
-                    onTap: () {
-                      // Add drawer or modal action here
-                    },
+                    onTap: () {},
                     child: Container(
                       width: 40,
                       height: 40,
@@ -183,21 +293,17 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-
             const SizedBox(height: 4),
             Text(
               today,
               style: const TextStyle(
                 fontFamily: "Roboto",
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w600,
                 fontSize: 14,
                 color: Color(0xFF8C8C8C),
               ),
             ),
-
             const SizedBox(height: 20),
-
-            // 🔹 Your Next Class Section
             const Text(
               "Your next class",
               style: TextStyle(
@@ -209,8 +315,6 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 12),
             _nextClassCard(),
             const SizedBox(height: 20),
-
-            // 🔹 Overview Section
             const Text(
               "Here's your overview today",
               style: TextStyle(
@@ -220,7 +324,6 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             const SizedBox(height: 12),
-
             Row(
               children: const [
                 Expanded(
@@ -228,8 +331,8 @@ class _HomePageState extends State<HomePage> {
                     count: "7",
                     label: "Programs",
                     icon: Icons.school,
-                    bgColor: Color(0xFFACFFB3), // light green
-                    iconBgColor: Color(0xFF22C55E), // green
+                    bgColor: Color(0xFFACFFB3),
+                    iconBgColor: Color(0xFF22C55E),
                     countColor: Color(0xFF2D632D),
                     labelColor: Color(0xFF57955A),
                   ),
@@ -240,15 +343,14 @@ class _HomePageState extends State<HomePage> {
                     count: "100",
                     label: "Students",
                     icon: Icons.people_alt,
-                    bgColor: Color(0xFFFFE2AC), // light orange
-                    iconBgColor: Color(0xFFF59E0B), // orange
+                    bgColor: Color(0xFFFFE2AC),
+                    iconBgColor: Color(0xFFF59E0B),
                     countColor: Color(0xFF635A2D),
                     labelColor: Color(0xFF957B57),
                   ),
                 ),
               ],
             ),
-
             const SizedBox(height: 20),
             const Text(
               "Check your student attendance",
@@ -259,8 +361,6 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             const SizedBox(height: 12),
-
-            // 🔹 Static Attendance Cards
             _attendanceGrid(),
           ],
         ),
@@ -268,7 +368,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // 🔹 Next Class Card
   Widget _nextClassCard() {
     return Card(
       elevation: 5,
@@ -330,33 +429,24 @@ class _HomePageState extends State<HomePage> {
                   child: const Text(
                     "See now",
                     style: TextStyle(
-                      fontFamily: "Sora", // 🔹 custom font
+                      fontFamily: "Sora",
                       fontWeight: FontWeight.w600,
-                      fontSize: 12, // 🔹 semibold
+                      fontSize: 12,
                     ),
                   ),
                 ),
-
-                // 🔹 Elevated + Shifted Icon Button
-                Transform.translate(
-                  offset: const Offset(0, -6), // iangat ng kaunti (negative Y)
-                  child: Material(
-                    elevation: 1, // shadow
-                    borderRadius: BorderRadius.circular(12),
-                    clipBehavior: Clip.antiAlias,
-                    color: Colors.white,
-                    child: IconButton(
-                      iconSize:
-                          MediaQuery.of(context).size.width *
-                          0.08, // mas malaki yung icon
-                      icon: const Icon(
-                        Icons.bookmark_border_rounded,
-                        color: Color(0xFF57955A),
-                      ),
-                      onPressed: () {
-                        // action dito
-                      },
+                Material(
+                  elevation: 1,
+                  borderRadius: BorderRadius.circular(12),
+                  clipBehavior: Clip.antiAlias,
+                  color: Colors.white,
+                  child: IconButton(
+                    iconSize: MediaQuery.of(context).size.width * 0.08,
+                    icon: const Icon(
+                      Icons.bookmark_border_rounded,
+                      color: Color(0xFF57955A),
                     ),
+                    onPressed: () {},
                   ),
                 ),
               ],
@@ -367,7 +457,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // 🔹 Static GridView for Attendance Cards
   Widget _attendanceGrid() {
     double screenWidth = MediaQuery.of(context).size.width;
     int crossAxisCount = screenWidth > 600 ? 3 : 2;
@@ -379,7 +468,9 @@ class _HomePageState extends State<HomePage> {
         crossAxisCount: crossAxisCount,
         crossAxisSpacing: 16,
         mainAxisSpacing: 8,
-        childAspectRatio: 0.7,
+        childAspectRatio: screenWidth < 400
+            ? 0.68
+            : (screenWidth < 600 ? 0.75 : 0.8),
       ),
       children: [
         _attendanceCard(
@@ -430,7 +521,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // 🔹 Attendance Card
   Widget _attendanceCard({
     required String title,
     required String students,
@@ -507,9 +597,6 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-// ======================
-// 📊 Reusable StatCard Widget
-// ======================
 class StatCard extends StatelessWidget {
   final String count;
   final String label;
@@ -546,7 +633,7 @@ class StatCard extends StatelessWidget {
               Text(
                 count,
                 style: TextStyle(
-                  fontSize: MediaQuery.of(context).size.width > 600 ? 32 : 24,
+                  fontSize: 24,
                   fontWeight: FontWeight.bold,
                   fontFamily: "Trispace",
                   color: countColor,
